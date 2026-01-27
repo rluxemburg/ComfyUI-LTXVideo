@@ -7,6 +7,7 @@ from .easy_samplers import (
     LTXVInContextSampler,
     LTXVNormalizingSampler,
 )
+from .gemma_api_conditioning import GemmaAPITextEncode
 from .gemma_encoder import LTXVGemmaCLIPModelLoader, LTXVGemmaEnhancePrompt
 from .guide import LTXVAddGuideAdvanced
 from .guiders import GuiderParametersNode, MultimodalGuiderNode
@@ -85,6 +86,7 @@ NODE_CLASS_MAPPINGS = {
     "LTXVPerStepStatNormPatcher": LTXVPerStepStatNormPatcher,
     "LTXVGemmaCLIPModelLoader": LTXVGemmaCLIPModelLoader,
     "LTXVGemmaEnhancePrompt": LTXVGemmaEnhancePrompt,
+    "GemmaAPITextEncode": GemmaAPITextEncode,
     "DynamicConditioning": DynamicConditioning,
     "LowVRAMCheckpointLoader": LowVRAMCheckpointLoader,
     "LowVRAMAudioVAELoader": LowVRAMAudioVAELoader,
