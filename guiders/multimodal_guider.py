@@ -64,7 +64,6 @@ class MultimodalGuider(comfy.samplers.CFGGuider):
         self,
         run_vx: bool,
         run_ax: bool,
-        audio_length: int,
         audio_ptb: bool,
         video_ptb: bool,
     ):
@@ -72,7 +71,7 @@ class MultimodalGuider(comfy.samplers.CFGGuider):
         num_self_attns = 0
         if run_vx:
             num_self_attns += 1
-        if run_ax and audio_length > 0:
+        if run_ax:
             num_self_attns += 1
 
         video_attn_idx = 0
@@ -120,8 +119,6 @@ class MultimodalGuider(comfy.samplers.CFGGuider):
         video_params: GuiderParameters = self.parameters.get(
             Modality.VIDEO.value, GuiderParameters()
         )
-
-        audio_length = model_options["transformer_options"].get("audio_length", 0)
 
         run_vx = not video_params.do_skip(current_step)
         run_ax = not audio_params.do_skip(current_step)
@@ -185,8 +182,7 @@ class MultimodalGuider(comfy.samplers.CFGGuider):
             try:
                 stg_indexes = self.calc_stg_indexes(
                     run_vx,
-                    run_ax,
-                    audio_length,
+                    run_ax and ax.numel() > 0,
                     audio_params.perturb_attn,
                     video_params.perturb_attn,
                 )
